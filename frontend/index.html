@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Lumos</title>
+    <title>Lumos - Harry Potter Non-Stop</title>
     <link rel="icon" type="image/png" href="lumos.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
@@ -23,39 +23,42 @@
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
+        /* Header mucho más compacto */
         header { 
             width: 100%; 
-            padding: 20px 0; 
+            padding: 10px 0; /* Reducido de 25px a 10px */
             background: radial-gradient(circle at center, #102040 0%, #050a14 100%); 
-            border-bottom: 1px solid rgba(160, 216, 239, 0.3); 
+            border-bottom: 1px solid rgba(160, 216, 239, 0.2); 
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 5px;
+            gap: 15px;
+        }
+        .header-logo {
+            width: 35px; /* Icono más pequeño para ahorrar espacio */
+            filter: drop-shadow(0 0 5px var(--glow));
         }
         h1 { 
             margin: 0; 
             font-family: 'Cinzel', serif; 
             color: var(--magic-white); 
-            letter-spacing: 8px; 
-            font-size: 2.5rem;
-            text-shadow: 0 0 15px var(--glow);
+            letter-spacing: 5px; 
+            font-size: 1.8rem; /* Tamaño de fuente reducido */
+            text-shadow: 0 0 10px var(--glow);
         }
-	.logo {
-            width: 60px;
-            filter: drop-shadow(0 0 10px var(--glow));
+        .slogan {
+            display: none; /* Eliminado el eslogan de arriba para ganar altura */
         }
 
+        /* Contenedor optimizado */
         #container { 
             position: relative; 
-            width: 90vw; 
-            max-width: 1100px; 
-            margin-top: 40px; 
-            border-radius: 8px;
+            width: 92vw; 
+            max-width: 1200px; 
+            margin-top: 15px; /* Reducido drásticamente de 50px a 15px */
+            border-radius: 4px;
             overflow: hidden;
             box-shadow: 0 0 40px rgba(0,0,0,0.8);
             border: 1px solid rgba(160, 216, 239, 0.1);
@@ -67,48 +70,45 @@
             aspect-ratio: 16/9;
         }
 
-        /* Título en la esquina inferior izquierda */
+        /* Status box más sutil */
         #status-box { 
             position: absolute; 
-            bottom: 30px; /* Separado del borde inferior */
-            left: 30px;   /* Posición izquierda solicitada */
+            bottom: 15px; 
+            left: 15px; 
             background: rgba(5, 10, 20, 0.7); 
-            padding: 12px 20px; 
-            border-left: 4px solid var(--glow); 
-            font-size: 0.9rem; 
+            padding: 8px 16px; 
+            border-left: 3px solid var(--glow); 
+            font-size: 0.8rem; 
             z-index: 10;
             backdrop-filter: blur(10px);
-            border-radius: 0 6px 6px 0;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-            pointer-events: none; /* No molesta al hacer click */
-            transition: all 0.5s ease;
+            pointer-events: none;
         }
         
         #status-box b { 
             color: var(--glow); 
             text-transform: uppercase;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             display: block;
-            margin-bottom: 4px;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         #titulo-film { 
-            color: white; 
+            color: #fff; 
             font-weight: 500; 
             font-family: 'Cinzel', serif;
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; letter-spacing: 4px; }
-            #status-box { bottom: 15px; left: 15px; font-size: 0.75rem; padding: 8px 12px; }
+            h1 { font-size: 1.4rem; letter-spacing: 2px; }
+            #container { width: 100vw; border-radius: 0; margin-top: 0; }
+            .header-logo { width: 25px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-	<img src="lumos.png" alt="Lumos Wand" class="logo">
+        <img src="lumos.png" alt="Lumos" class="header-logo">
         <h1>LUMOS</h1>
     </header>
 
@@ -118,8 +118,8 @@
         </video-js>
         
         <div id="status-box">
-            <b>Ahora proyectando:</b>
-            <span id="titulo-film">Lanzando hechizo...</span>
+            <b>PROYECTANDO</b>
+            <span id="titulo-film">Cargando...</span>
         </div>
     </div>
 
@@ -134,16 +134,15 @@
 
         async function updateTitle() {
             try {
-                // Importante: Asegúrate que la ruta coincide con la de Nginx
                 const res = await fetch('/live/titulo.txt?nocache=' + Date.now());
                 if (res.ok) {
                     const text = await res.text();
                     if (text.trim().length > 0) {
-                        document.getElementById('titulo-film').innerText = text;
+                        document.getElementById('titulo-film').innerText = text.toUpperCase();
                     }
                 }
             } catch (e) {
-                console.log("Error de conexión con el Gran Comedor...");
+                console.log("Sincronizando...");
             }
         }
 
