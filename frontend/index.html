@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lumos</title>
+    <link rel="icon" type="image/png" href="lumos.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    
+    <style>
+        :root { 
+            --magic-white: #f0faff; 
+            --deep-blue: #050a14; 
+            --glow: #a0d8ef;
+        }
+        body { 
+            margin: 0; 
+            background: var(--deep-blue); 
+            color: var(--magic-white); 
+            font-family: 'Montserrat', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header { 
+            width: 100%; 
+            padding: 20px 0; 
+            background: radial-gradient(circle at center, #102040 0%, #050a14 100%); 
+            border-bottom: 1px solid rgba(160, 216, 239, 0.3); 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+        h1 { 
+            margin: 0; 
+            font-family: 'Cinzel', serif; 
+            color: var(--magic-white); 
+            letter-spacing: 8px; 
+            font-size: 2.5rem;
+            text-shadow: 0 0 15px var(--glow);
+        }
+	.logo {
+            width: 60px;
+            filter: drop-shadow(0 0 10px var(--glow));
+        }
+
+        #container { 
+            position: relative; 
+            width: 90vw; 
+            max-width: 1100px; 
+            margin-top: 40px; 
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(160, 216, 239, 0.1);
+        }
+
+        .video-js { 
+            width: 100% !important; 
+            height: auto !important;
+            aspect-ratio: 16/9;
+        }
+
+        /* Título en la esquina inferior izquierda */
+        #status-box { 
+            position: absolute; 
+            bottom: 30px; /* Separado del borde inferior */
+            left: 30px;   /* Posición izquierda solicitada */
+            background: rgba(5, 10, 20, 0.7); 
+            padding: 12px 20px; 
+            border-left: 4px solid var(--glow); 
+            font-size: 0.9rem; 
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            border-radius: 0 6px 6px 0;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            pointer-events: none; /* No molesta al hacer click */
+            transition: all 0.5s ease;
+        }
+        
+        #status-box b { 
+            color: var(--glow); 
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            display: block;
+            margin-bottom: 4px;
+            letter-spacing: 2px;
+        }
+
+        #titulo-film { 
+            color: white; 
+            font-weight: 500; 
+            font-family: 'Cinzel', serif;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; letter-spacing: 4px; }
+            #status-box { bottom: 15px; left: 15px; font-size: 0.75rem; padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+	<img src="lumos.png" alt="Lumos Wand" class="logo">
+        <h1>LUMOS</h1>
+    </header>
+
+    <div id="container">
+        <video-js id="player" class="vjs-default-skin vjs-big-play-centered">
+            <source src="/live/live.m3u8" type="application/x-mpegURL">
+        </video-js>
+        
+        <div id="status-box">
+            <b>Ahora proyectando:</b>
+            <span id="titulo-film">Lanzando hechizo...</span>
+        </div>
+    </div>
+
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <script>
+        var player = videojs('player', {
+            autoplay: 'muted',
+            controls: false,
+            fluid: true,
+            preload: 'auto'
+        });
+
+        async function updateTitle() {
+            try {
+                // Importante: Asegúrate que la ruta coincide con la de Nginx
+                const res = await fetch('/live/titulo.txt?nocache=' + Date.now());
+                if (res.ok) {
+                    const text = await res.text();
+                    if (text.trim().length > 0) {
+                        document.getElementById('titulo-film').innerText = text;
+                    }
+                }
+            } catch (e) {
+                console.log("Error de conexión con el Gran Comedor...");
+            }
+        }
+
+        document.body.addEventListener('click', () => {
+            player.muted(false);
+            player.play();
+        }, { once: true });
+
+        setInterval(updateTitle, 10000);
+        updateTitle();
+    </script>
+</body>
+</html>

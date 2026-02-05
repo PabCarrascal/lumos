@@ -1,0 +1,8 @@
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y la Piedra Filosofal (2001)/Harry Potter y la Piedra Filosofal (2001).mkv'
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y la Camara Secreta (2002)/Harry Potter y la Camara Secreta (2002).mkv'
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y el Prisionero de Azkaban (2004)/Harry Potter y el Prisionero de Azkaban (2004).mkv'
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y el Caliz de Fuego (2005)/Harry Potter y el Caliz de Fuego (2005).mkv'
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y la orden del Fenix (2007)/Harry Potter y la orden del Fenix (2007).mkv'
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y el misterio del Principe (2009)/Harry Potter y el misterio del Principe (2009).mkv'
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y las Reliquias de la Muerte 1 (2010)/Harry Potter y las Reliquias de la Muerte 1 (2010).mkv'
+file '/media/HDD3TB/PELICULAS/movies/harry potter/Harry Potter y las Reliquias de la Muerte 2 (2011)/Harry Potter y las Reliquias de la Muerte 2 (2011).mkv'
