@@ -1,31 +1,31 @@
-# 🐎 Ride to Gondor - HLS Streaming Server
+# 🪄 LUMOS: Harry Potter Non-Stop Streamer
 
-Un sistema de streaming infinito automatizado para la saga de la Tierra Media. Este proyecto utiliza una arquitectura ligera basada en **FFmpeg**, **Python** y **Nginx** para emitir video en alta definición con audio en español y títulos dinámicos.
+**Lumos** es una plataforma web minimalista y elegante diseñada para la retransmisión continua (24/7) de la saga de Harry Potter almacenada en un servidor local. A diferencia de un reproductor convencional, Lumos emite un flujo constante (HLS), permitiendo que cualquier usuario que se conecte vea la misma escena al mismo tiempo.
 
-## 🚀 Características
+> *"Lumos: Deja que la magia brille"*
 
-- **Streaming Infinito:** Bucle continuo de la saga completa sin cortes.
-- **Títulos Dinámicos:** Monitorización en tiempo real de los logs de FFmpeg para mostrar el nombre de la película actual en el frontend.
-- **Audio Optimizado:** Transcodificación a AAC Estéreo (2.0) para compatibilidad universal (Safari, Chrome, Móviles).
-- **Arquitectura en RAM:** Los fragmentos de video se generan en `/dev/shm` para minimizar el desgaste del disco y reducir la latencia.
-- **Interfaz Inmersiva:** Frontend minimalista con temática de Gondor y soporte para dispositivos Apple.
+---
 
-## 🛠️ Requisitos Técnicos
+## 🛠️ Especificaciones Técnicas
 
-- **SO:** Ubuntu / Debian Linux.
-- **Software:** - `ffmpeg` (Motor de video)
-  - `python3` (Controlador y monitor de títulos)
-  - `nginx` (Servidor web y entrega HLS)
-- **Librerías Python:** `subprocess`, `threading`, `re`.
+La aplicación utiliza una arquitectura de tres capas para garantizar fluidez y bajo consumo de recursos:
 
-## 📂 Estructura de Archivos
+* **Procesamiento de Video:** FFmpeg se encarga de la concatenación y transcodificación en tiempo real.
+* **Gestión de Memoria:** Los segmentos de video se escriben en `/dev/shm` (RAM) para evitar el desgaste del HDD/SSD y reducir la latencia.
+* **Servidor Web:** Nginx sirve los fragmentos estáticos de video mediante el protocolo HLS.
+* **Interfaz de Usuario:** Frontend basado en Video.js con tipografía mágica y diseño adaptable.
+
+
+
+---
+
+## 📂 Estructura del Proyecto
 
 ```text
-/var/www/ridetogondor/
+/var/www/lumos/
 ├── backend/
-│   ├── streamer.py       # Script principal (FFmpeg + Monitor)
-│   └── playlist.txt      # Lista de reproducción generada
-├── frontend/
-│   ├── index.html        # Interfaz de usuario
-│   ├── ridetogondor.png  # Logo y Favicon
-│   └── live/             # Enlace simbólico a /dev/shm/hls/
+│   ├── streamer.py        # Motor de streaming en Python
+│   └── playlist.txt       # Lista de rutas físicas generada dinámicamente
+└── frontend/
+    ├── index.html         # Interfaz web (Lumos UI)
+    └── lumos-icon.png     # Identidad visual
