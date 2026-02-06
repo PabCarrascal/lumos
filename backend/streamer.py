@@ -84,17 +84,16 @@ def iniciar_ffmpeg():
     comando = [
         'ffmpeg', '-loglevel', 'error', '-nostats',
         '-re', '-stream_loop', '-1', '-f', 'concat', '-safe', '0', '-i', PLAYLIST_FILE,
-        '-map', '0:v:0', '-map', '0:a:0', 
-        # --- CONFIGURACIÓN DE ALTO RENDIMIENTO PARA CPU ---
-        '-c:v', 'libx264', 
-        '-preset', 'ultrafast',   # Mínimo uso de CPU, máxima velocidad
-        '-tune', 'zerolatency',   # Optimizado para streaming en vivo
-        '-crf', '23',             # Calidad de imagen equilibrada
-        '-maxrate', '3000k', 
+	'-map', '0:v:0',               # Primer video
+        '-map', '0:a:m:language:spa?', # Español preferente
+        '-c:v', 'libx264',
+        '-preset', 'ultrafast',
+        '-tune', 'zerolatency',
+        '-crf', '23',
+        '-maxrate', '3000k',
         '-bufsize', '6000k',
-        '-pix_fmt', 'yuv420p',    # Compatibilidad universal (móviles/web)
-        '-g', '50',               # Keyframes cada 2 segundos para HLS
-        # --------------------------------------------------
+        '-pix_fmt', 'yuv420p',
+        '-g', '50',
         '-c:a', 'aac', '-b:a', '128k', '-ac', '2', '-ar', '44100',
         '-f', 'hls', '-hls_time', '4', '-hls_list_size', '5', '-hls_flags', 'delete_segments',
         os.path.join(HLS_PATH, 'live.m3u8')
