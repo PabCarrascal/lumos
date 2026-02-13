@@ -103,6 +103,46 @@
             #container { width: 100vw; border-radius: 0; margin-top: 0; }
             .header-logo { width: 25px; }
         }
+
+	/* --- ESTILOS DEL FOOTER RDT --- */
+        .rdt-footer {
+            margin-top: auto; 
+            padding: 3rem 0 1.5rem 0; /* Un poco más de aire superior */
+            text-align: center;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+        .rdt-footer:hover {
+            opacity: 1;
+        }
+        .rdt-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;    
+            width: fit-content;    
+            margin: 0 auto;        
+        }
+        .rdt-logo {
+            height: 35px; /* Tamaño ajustado para discreción */
+            width: auto;            
+            margin-bottom: 10px;
+            /* Un ligero toque de brillo para que encaje con el tema Lumos */
+            filter: grayscale(100%) brightness(1.5);
+            transition: filter 0.3s ease;
+        }
+        .rdt-link:hover .rdt-logo {
+            filter: grayscale(0%) brightness(1);
+        }
+        .rdt-text {
+            font-size: 0.8rem;
+            color: var(--glow); /* Usando la variable de color que ya teníamos */
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -122,6 +162,15 @@
             <span id="titulo-film">Cargando...</span>
         </div>
     </div>
+    
+    <footer class="rdt-footer">
+        <div class="flex justify-center"> 
+            <a href="https://rdtserver.com" target="_blank" class="rdt-link">
+                <img src="logo-icon.jpeg" alt="RDT Logo" class="rdt-logo">
+                <p class="rdt-text">&copy; 2026 Reconquista Dev Team.</p>
+            </a>
+        </div>
+    </footer>
 
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script>
